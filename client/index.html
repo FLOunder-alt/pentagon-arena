@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pentagon Arena</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toast" class="hidden"></div>
+
+  <!-- ACCOUNT -->
+  <section id="account" class="screen hidden">
+    <form id="accountForm" class="card narrow">
+      <h1>Pentagon Arena</h1>
+      <p class="muted">Create your fighter. Your account is saved in this browser.</p>
+      <label>Username <input id="acc-name" maxlength="14" minlength="2" required autocomplete="off"></label>
+      <label>Player color <input id="acc-color" type="color" value="#4da3ff"></label>
+      <button class="primary">Create account</button>
+    </form>
+  </section>
+
+  <!-- LOBBY -->
+  <section id="lobby" class="screen hidden">
+    <header class="bar">
+      <h1>Pentagon Arena</h1>
+      <div id="me"></div>
+      <button id="resetAcc" class="ghost small">Reset account</button>
+    </header>
+    <div class="grid">
+      <form id="createForm" class="card">
+        <h2>Create room</h2>
+        <label>Room name <input id="cr-name" maxlength="20" required autocomplete="off"></label>
+        <label>Max players
+          <select id="cr-max"><option>2</option><option>3</option><option selected>4</option><option>5</option></select>
+        </label>
+        <label>Password (optional) <input id="cr-pass" maxlength="20" autocomplete="off"></label>
+        <label>Visibility
+          <select id="cr-pub"><option value="1">Public</option><option value="0">Private</option></select>
+        </label>
+        <button class="primary">Create room</button>
+      </form>
+
+      <div class="card">
+        <h2>Public rooms</h2>
+        <div id="roomList" class="list"></div>
+        <h3>Join a private room</h3>
+        <form id="joinForm" class="row">
+          <input id="j-name" placeholder="Room name" required>
+          <input id="j-pass" placeholder="Password">
+          <button class="primary">Join</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>My rooms</h2>
+        <div id="myRooms" class="list"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ROOM -->
+  <section id="room" class="screen hidden">
+    <div class="card narrow">
+      <h2 id="roomTitle"></h2>
+      <p class="muted" id="roomSub"></p>
+      <div id="players" class="list"></div>
+      <div class="row">
+        <button id="startBtn" class="primary">Start game</button>
+        <button id="closeBtn" class="danger">Close room</button>
+        <button id="leaveBtn" class="ghost">Leave room</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section id="game" class="screen hidden">
+    <canvas id="c"></canvas>
+    <div id="hud">
+      <div class="hudrow"><span id="hpTxt">100 HP</span><div class="bar2"><i id="hpFill" class="hp"></i></div></div>
+      <div class="hudrow"><span>Attack</span><div class="bar2"><i id="cdFill" class="cd"></i></div></div>
+      <div class="hudrow small">Damage <b id="dmg">10</b> &nbsp; Kills <b id="kills">0</b> &nbsp; Alive <b id="alive">0</b></div>
+      <div id="mode" class="ghosttxt"></div>
+    </div>
+    <div id="feed"></div>
+    <div id="banner" class="hidden"></div>
+    <div id="help">WASD / arrows: move &nbsp; Mouse: aim &nbsp; Hold click: shoot</div>
+  </section>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
